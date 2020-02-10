@@ -25,6 +25,30 @@ class TareaController {
         await proyecto.tareas().save(tarea);
         return tarea;
     }
+
+    async update({auth, params, request}){
+        const user = await auth.getUser();
+        const { id } = params;
+        const tarea  = await  Tarea.find(id);
+        const proyecto =  await tarea.proyecto().fetch();
+        AutorizacionService.verificarPermiso(proyecto,user);
+        await tarea.merge(request.only([
+            'descripcion',
+            'completada'
+        ]));
+        await tarea.save();
+        return tarea;
+    }
+
+    async destroy({auth, params}){
+        const user = await auth.getUser();
+        const { id } = params;
+        const tarea  = await  Tarea.find(id);
+        const proyecto =  await tarea.proyecto().fetch();
+        AutorizacionService.verificarPermiso(proyecto,user);
+        await tarea.delete();
+        return tarea;
+    }
 }
 
 module.exports = TareaController
