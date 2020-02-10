@@ -30,5 +30,6 @@ Route.group(()=>{
   Route.patch('proyectos/:id', 'ProyectoController.update').middleware('auth');
   //Rutas de tareas
   Route.post('proyectos/:id/tareas', 'TareaController.create').middleware('auth');
+  Route.get('proyectos/:id/tareas', 'TareaController.index').middleware('auth');
 
 }).prefix('api/v1/');
