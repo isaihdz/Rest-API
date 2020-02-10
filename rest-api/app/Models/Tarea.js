@@ -3,14 +3,10 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
-class Proyecto extends Model {
-    user(){
+class Tarea extends Model {
+    proyecto(){
         return this.belongsTo('App/Models/User')
-    }
-
-    tarea(){
-        return this.hasMany('App/Models/Tarea');
     }
 }
 
-module.exports = Proyecto
+module.exports = Tarea
